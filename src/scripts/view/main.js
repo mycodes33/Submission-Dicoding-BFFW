@@ -9,34 +9,23 @@ function main() {
 
 
 const getMovie = () => {
-    const baseUrl="https://api.themoviedb.org/3/movie";
-  
+    const baseUrl="https://api.themoviedb.org/3/movie";  
     const api_token = "bbb235f9dfd28f9bcb6dfa24d42f290f";
-    fetch(`${baseUrl}/upcoming`, {
-        headers: {
 
-       "Access-Control-Allow-Credentials": "true",
-       "accept":"application/json",
-        "mode": "no-cors",
-        "X-Auth-Token": api_token,
-        "Access-Control-Allow-Origin": "*",
-        },
-     
-        method: "GET",
-
-      }).then((response) => {
+    fetch(`${baseUrl}/upcoming?api_key=${api_token}`)
+    .then((response) => {
         return response.json();
-      })
-     .then(responseJson => {
+    })
+    .then(responseJson => {
         if(responseJson.error) {
             showResponseMessage(responseJson.message);
         } else {
-            renderAllMovies(responseJson.movies);
+            renderAllMovies(responseJson.results);
         }
-     })
-     .catch(error => {
-         showResponseMessage(error);
-     })
+    })
+    .catch(error => {
+        showResponseMessage(error);
+    })
 };
 
 
